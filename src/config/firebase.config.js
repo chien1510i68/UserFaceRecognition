@@ -7,13 +7,13 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyC_vrFCuIR1SeEjmBO76bNM3Dilnwr4TTI",
-  authDomain: "facerecognition-60f8d.firebaseapp.com",
-  projectId: "facerecognition-60f8d",
-  storageBucket: "facerecognition-60f8d.appspot.com",
-  messagingSenderId: "381336574319",
-  appId: "1:381336574319:web:a24ed06b4280efa282309a",
-  measurementId: "G-9X11RS6LYD"
+  apiKey: "AIzaSyD_YWMbobg_41icAAEwJ6A1Sv4cRWTeW5M",
+  authDomain: "facerecognitionuser.firebaseapp.com",
+  projectId: "facerecognitionuser",
+  storageBucket: "facerecognitionuser.appspot.com",
+  messagingSenderId: "1028879612027",
+  appId: "1:1028879612027:web:8ecfc034fc3d291a09cade",
+  measurementId: "G-C1S700FE0B"
 };
 
 // Initialize Firebase
