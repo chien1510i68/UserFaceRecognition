@@ -17,6 +17,8 @@ function GetImage({ handleAddImage ,next }) {
     handleAddImage(blob);
     next()
 
+
+    
   };
   return (
     <div>

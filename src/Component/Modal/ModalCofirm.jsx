@@ -12,14 +12,16 @@ function ModalCofirm({ isOpen, onCancel ,distance}) {
       <Modal open={isOpen} footer={null} closeIcon={false}>
         <Result
           status="success"
-          title={`Điểm danh thành công sinh viên ${userName} có mã sinh viên ${userCode} khoảng cách tới giáo viên là  ${distance}`}
+          title={`Điểm danh thành công sinh viên ${userName} có mã sinh viên ${userCode} `
+          // khoảng cách tới giáo viên là  ${distance}
+        }
           extra={[
             <Button className="text-green-300 block ml-auto" onClick={() => 
             {
               onCancel();
               navigate("/history")
             }}>
-              Đóng
+              Xem lịch sử
             </Button>,
           
           ]}

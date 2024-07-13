@@ -18,3 +18,10 @@ export const replaceImage = async (data) => {
   const res = await request.post("user/update-image", data);
   return res;
 };
+
+export const predictUser = async (data) =>{
+  return await request.post("user/prediction" , data)
+}
+export const trainingModel = async (data) =>{
+  return await request.post("user/trainModel" , data)
+}

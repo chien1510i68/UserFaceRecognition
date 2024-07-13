@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import image_admin from "../Assets/user_login_image.png";
 import { login } from "../Component/api/user";
 
-function Login(props) {
+function Login() {
   const navigate = useNavigate();
   const onFinish = async (values) => {
     console.log("Success:", values);
@@ -18,7 +18,7 @@ function Login(props) {
       Cookies.set("jwt", res?.data?.data?.jwt);
       Cookies.set("userCode", res?.data?.data?.userCode);
       Cookies.set("userName", res?.data?.data?.userName);
-      navigate("/history");
+      navigate("/scan");
     } else {
       notification.error({
         message: "Tài khoản hoặc mật khẩu không chính xác",

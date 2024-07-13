@@ -1,16 +1,10 @@
-import {
-  Button,
-  Card,
-  Modal,
-  Spin,
-  notification,
-  theme
-} from "antd";
+import { Button, Card, Modal, Spin, notification, theme } from "antd";
 import Cookies from "js-cookie";
 import JSZip from "jszip";
 import React, { useState } from "react";
-import { face_recognition_url } from "../Component/api/url";
+
 import Camera from "./Camera";
+import { trainingModel } from "../Component/api/user";
 
 function GetImagesToTrain({ handleTest }) {
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
@@ -40,29 +34,25 @@ function GetImagesToTrain({ handleTest }) {
     // saveAs(content, "example.zip");
 
     const formData = new FormData();
-    formData.append("input_folder", content, "images.zip");
-    formData.append("user_code", userCode);
-
-    try {
-      const response = await fetch(`${face_recognition_url}/detections/`, {
-        method: "POST",
-        body: formData,
+    formData.append("image", content, "images.zip");
+    formData.append("userCode", userCode);
+    trainingModel(formData)
+      .then((res) => {
+        if (res?.data?.data === "Thanh cong") {
+          setLoading(false);
+          handleTest();
+          notification.success({
+            message: "Mô hình đã được huấn luyện thành công",
+          });
+        } else {
+          setLoading(false);
+          notification.error({ message: "Đã xảy ra lỗi khi gửi file ZIP" });
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        notification.error({ message: `Lỗi: ${err.message}` });
       });
-
-      if (response.ok) {
-        setLoading(false);
-        handleTest();
-        notification.success({
-          message: "Mô hình đã được huấn luyện thành công",
-        });
-      } else {
-        setLoading(false);
-        notification.error({ message: "Đã xảy ra lỗi khi gửi file ZIP" });
-      }
-    } catch (error) {
-      setLoading(false);
-      notification.error({ message: `Lỗi: ${error.message}` });
-    }
   };
 
   const contents = [

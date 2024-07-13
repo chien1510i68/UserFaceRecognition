@@ -1,3 +1,4 @@
+
 import { Button, Modal, Result, Spin, notification } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
@@ -5,7 +6,8 @@ import Webcam from "react-webcam";
 import Cookies from "js-cookie";
 import { faceRecognition } from "../Component/api/face_recognition";
 import ModalCofirm from "../Component/Modal/ModalCofirm";
-import { face_recognition_url } from "../Component/api/url";
+import { predictUser } from "../Component/api/user";
+import { useNavigate } from "react-router";
 
 function TestFaceRecognition({ handleCancel }) {
   const webcamRef = useRef(null);
@@ -15,6 +17,7 @@ function TestFaceRecognition({ handleCancel }) {
   const [valuePredict, setValuePredict] = useState(0);
   const [openModalResult, setOpenModalResult] = useState(false);
   const userName = Cookies.get("userName");
+  const navigate = useNavigate();
   const capture = async () => {
     setLoading(true);
     const imageSrc = webcamRef.current.getScreenshot();
@@ -29,31 +32,23 @@ function TestFaceRecognition({ handleCancel }) {
 
     const formData = new FormData();
     formData.append("image", blob, "captured_image.jpg");
-    formData.append("file_name", Cookies.get("userCode"));
+    formData.append("userCode", Cookies.get("userCode"));
 
-    fetch(`${face_recognition_url}/predict/`, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
+    predictUser(formData)
+      .then((res) => {
         setLoading(false);
-        if (!response.ok) {
-          throw new Error("Có lỗi xảy ra khi gửi yêu cầu.");
+        if (res?.data?.data >= 80) {
+          notification.success({
+            message: `Nhận dạng thành công sinh viên ${userName}`,
+          });
+        } else {
+          notification.error({ message: "Không nhận dạng thành công" });
         }
-        return response.json(); // Chuyển đổi phản hồi thành dạng JSON
+        console.log(res);
       })
-      .then((data) => {
+      .catch((err) => {
         setLoading(false);
-        setOpenModalResult(true);
-        // console.log(data); // In dữ liệu phản hồi vào console
-        // notification.success({
-        //   message: "Độ chính xác là: " + data.predictions,
-        // }); // Sử dụng dữ liệu trong thông báo
-        setValuePredict(data.predictions);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error("Lỗi khi gửi video:", error);
+        console.log(err);
       });
   };
 
@@ -61,9 +56,9 @@ function TestFaceRecognition({ handleCancel }) {
     <div className="sm:pt-[10%] w-[]">
       <div>
         <p className="text-center">
-         Sử dụng khuôn mặt của bạn để thử nhận dạng mô hình nhận diện khuôn mặt 
+          Sử dụng khuôn mặt của bạn để thử nhận dạng mô hình nhận diện khuôn mặt
         </p>
-        <Button onClick={() => handleCancel()}>Thoát</Button>
+        <Button onClick={() => navigate("/history")}>Thoát</Button>
       </div>
       <Webcam
         className="block  my-4 rounded-md mx-auto"
@@ -93,12 +88,16 @@ function TestFaceRecognition({ handleCancel }) {
         onCancel={() => setOpenModalResult(false)}
       >
         <Result
-          status={`${valuePredict == 501 || valuePredict == 500 || valuePredict == 502  ? "warning" :"success" }`}
+          status={`${
+            valuePredict == 501 || valuePredict == 500 || valuePredict == 502
+              ? "warning"
+              : "success"
+          }`}
           title={`${
-            valuePredict == 501 || valuePredict == 500 || valuePredict == 502 ? "Có lỗi khi nhận dạng " :
-            valuePredict > 80
+            valuePredict == 501 || valuePredict == 500 || valuePredict == 502
+              ? "Có lỗi khi nhận dạng "
+              : valuePredict > 80
               ? `Nhận dạng thành công ${userName} với độ chính xác là: ${valuePredict}`
-
               : "Không thể nhận dạng chính xác khuôn mặt của bạn "
           }`}
           extra={[

@@ -33,51 +33,53 @@ function Signature({ qrId }) {
       notification.error({
         message: "Bạn cần ký tên trước khi gửi ",
       });
-    }else{
-    const binaryData = atob(image1.split(",")[1]);
-    const uint8Array = new Uint8Array(binaryData.length);
+    } else {
+      const binaryData = atob(image1.split(",")[1]);
+      const uint8Array = new Uint8Array(binaryData.length);
 
-    for (let i = 0; i < binaryData.length; i++) {
-      uint8Array[i] = binaryData.charCodeAt(i);
-    }
-    const blob = new Blob([uint8Array], { type: "image/jpeg" });
-    const dataUrl = sigCanvas.current.getTrimmedCanvas().toDataURL("image/png");
-    const signature = dataURLToBlob(dataUrl);
-    const formData = new FormData();
-    formData.append("image", blob, "captured_image.jpg");
-    formData.append("signature", signature, "signature.png");
-    formData.append("qrCodeId", qrId);
-    formData.append("longitude", longitude);
-    formData.append("latitude", latitude);
-    formData.append("userCode", Cookies.get("userCode"));
-    // notification.success({ message: longitude });
-    // notification.success({ message: latitude });
+      for (let i = 0; i < binaryData.length; i++) {
+        uint8Array[i] = binaryData.charCodeAt(i);
+      }
+      const blob = new Blob([uint8Array], { type: "image/jpeg" });
+      const dataUrl = sigCanvas.current
+        .getTrimmedCanvas()
+        .toDataURL("image/png");
+      const signature = dataURLToBlob(dataUrl);
+      const formData = new FormData();
+      formData.append("image", blob, "captured_image.jpg");
+      formData.append("signature", signature, "signature.png");
+      formData.append("qrCodeId", qrId);
+      formData.append("longitude", longitude);
+      formData.append("latitude", latitude);
+      formData.append("userCode", Cookies.get("userCode"));
+      // notification.success({ message: longitude });
+      // notification.success({ message: latitude });
 
-    try {
-      setLoading(true);
-      faceRecognition(formData).then((res) => {
-        setLoading(false);
-        console.log(res?.data);
-        if (res?.data?.success) {
-          setDistance(res?.data?.data?.distance);
-          setOpenModalResults(true);
-          // notification.success({
-          //   message: `Điểm danh thành công ${userName} có mã sinh viên ${userCode}`,
-          // });
-          // notification.success({
-          //   message: `Khoảng cách:  ${res?.data?.data?.distance} mét`,
-          // });
+      try {
+        setLoading(true);
+        faceRecognition(formData).then((res) => {
+          setLoading(false);
+          console.log(res?.data);
+          if (res?.data?.success) {
+            setDistance(res?.data?.data?.distance);
+            setOpenModalResults(true);
+            // notification.success({
+            //   message: `Điểm danh thành công ${userName} có mã sinh viên ${userCode}`,
+            // });
+            // notification.success({
+            //   message: `Khoảng cách:  ${res?.data?.data?.distance} mét`,
+            // });
 
-          // console.log(res?.data);
-        } else {
-          notification.error({ message: res?.data?.error?.message });
-        }
-      });
-    } catch (error) {
-      console.error("Error in faceRecognition:", error);
+            // console.log(res?.data);
+          } else {
+            notification.error({ message: res?.data?.error?.message });
+          }
+        });
+      } catch (error) {
+        console.error("Error in faceRecognition:", error);
+      }
     }
   };
-}
 
   const dataURLToBlob = (dataURL) => {
     const parts = dataURL.split(";base64,");
@@ -147,11 +149,19 @@ function Signature({ qrId }) {
       >
         <Result
           status="success"
-          title={`Điểm danh thành công ${userName} có mã sinh viên ${userCode} khoảng cách ${distance} mét`}
+          title={
+            `Điểm danh thành công ${userName} có mã sinh viên ${userCode} 
+          `
+
+            // khoảng cách ${distance} mét
+          }
           extra={[
             <Button
               className="block ml-auto"
-              onClick={() => setOpenModalResults(false)}
+              onClick={() => {
+                setOpenModalResults(false);
+                navigate("/history");
+              }}
             >
               Xem lịch sử{" "}
             </Button>,
