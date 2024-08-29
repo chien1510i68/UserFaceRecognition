@@ -1,12 +1,11 @@
 import DefaultLayout from "../Component/Layout/DefaultLayout";
 import ShowVideo from "../Component/ShowVideo";
-import AttendedHistory from "../Page/AttendedHistory";
+import AttendedHistory from "../Page//history/AttendedHistory";
 import Camera from "../Page/Camera";
 import FaceRecognition from "../Page/FaceRecognition";
-import Login from "../Page/Login";
-import ScanQR from "../Page/ScanQR";
+import Login from "../Page/login/Login";
+import ScanQR from "../Page/scan/ScanQR";
 import Test from "../Page/Test";
-import TestFaceRecognition from "../Page/TestFaceRecognition";
 import UpdateImage from "../Page/UpdateImage";
 
 const { createBrowserRouter } = require("react-router-dom");

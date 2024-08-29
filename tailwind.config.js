@@ -15,6 +15,16 @@ module.exports = {
       // => @media (min-width: 1280px) { ... }
       
     },
+    extend: {
+      fontFamily: {
+        logo: ['Vibur', 'SUSE','Roboto'], // Thêm font 'Vibur' vào cấu hình
+        title: ['ZCOOL QingKe HuangYou', 'SUSE','Roboto'], // Thêm font 'Vibur' vào cấu hình
+        description: ['Montserrat', 'SUSE','Roboto'], // Thêm font 'Vibur' vào cấu hình
+      },
+      colors : {
+        colorPrimary : "#3A97D1"
+      }
+    },
   },
     
   plugins: [],

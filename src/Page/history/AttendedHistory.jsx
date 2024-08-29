@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import TableJoinedClassroomByUser from "../Component/Table/TableJoinedClassroomByUser";
-import { getClassroomsByUser } from "../Component/api/classroom";
+import TableJoinedClassroomByUser from "../../Component/Table/TableJoinedClassroomByUser";
+import { getClassroomsByUser } from "../../Component/api/classroom";
 import Cookies from "js-cookie";
 import { Modal, Spin } from "antd";
 
