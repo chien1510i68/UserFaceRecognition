@@ -21,7 +21,7 @@ function LoginPhone() {
       Cookies.set("jwt", res?.data?.data?.jwt);
       Cookies.set("userCode", res?.data?.data?.userCode);
       Cookies.set("userName", res?.data?.data?.userName);
-      navigate("/scan");
+      navigate("/home");
     } else {
       setLoading(false);
       notification.error({

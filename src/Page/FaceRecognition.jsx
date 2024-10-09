@@ -1,9 +1,11 @@
-import ShowVideo from "../Component/ShowVideo";
+import ShowVideo from "./attendance/ShowVideo";
 
 import { useLocation } from "react-router";
 
 import { notification } from "antd";
-import Signature from "./Signature";
+import Signature from "./signature/Signature";
+import SignaturePhone from "./signature/SignaturePhone";
+import AttendancePhoneFace from "./attendance/AttendancePhoneFace";
 
 function FaceRecognition(props) {
   const location = useLocation();
@@ -14,15 +16,26 @@ function FaceRecognition(props) {
   return (
     <div className="relative">
       {isNormal === "true" ? (
-        <Signature qrId={qrId} />
+        <>
+          <div className="phone:hidden tablet:block">
+            <Signature qrId={qrId} />
+          </div>
+          <div className="phone:block tablet:hidden">
+            <SignaturePhone qrId={qrId} />
+          </div>
+        </>
       ) : isNormal === "false" ? (
-        <div className=" pt-10 ">
-          <ShowVideo qrId={qrId} />
+        <div className="  ">
+          <div className="phone:hidden tablet:block">
+            <ShowVideo qrId={qrId} />
+          </div>
+          <div className="tablet:hidden phone:block">
+            <AttendancePhoneFace/>
+          </div>
         </div>
       ) : (
         notification.error({ message: "QR không hợp lệ" })
       )}
-    
     </div>
   );
 }

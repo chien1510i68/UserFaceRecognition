@@ -3,12 +3,11 @@ import { Button, Divider, Space, Tooltip } from "antd";
 import { getHistoryAttended } from "../api/classroom";
 import { CheckOutlined } from "@ant-design/icons";
 
-
 function HistoriAttended({ data }) {
-  
+
+
   return (
     <>
-     
       <Space wrap>
         {data &&
           data.map((item) => (

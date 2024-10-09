@@ -1,0 +1,14 @@
+/* Custom styles for removing row borders */
+.ant-table-tbody > tr > td {
+    border-bottom: none !important;
+  }
+  .ant-table-thead > tr > th {
+    border-bottom: none !important;
+  }
+  /* Remove left and right borders of header cells */
+.ant-table-thead > tr > th {
+    border-left: none !important;
+    border-right: none !important;
+  }
+  
+  

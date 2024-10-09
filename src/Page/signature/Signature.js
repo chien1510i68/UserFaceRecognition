@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import Cookies from "js-cookie";
 import { Button, Modal, Result, Spin, notification } from "antd";
 import SignatureCanvas from "react-signature-canvas";
-import image1 from "../Assets/user.png";
-import { faceRecognition } from "../Component/api/face_recognition";
+import image1 from "../../Assets/user.png";
+import { faceRecognition } from "../../Component/api/face_recognition";
 import { useNavigate } from "react-router";
 function Signature({ qrId }) {
   const [position, setPosition] = useState(null);
@@ -17,7 +17,7 @@ function Signature({ qrId }) {
   const userName = Cookies.get("userName");
   const userCode = Cookies.get("userCode");
   const navigate = useNavigate();
-
+  // Qr id dang fix gia tri
   const handleSignature = () => {
     setIsSigned(true);
   };
@@ -63,14 +63,6 @@ function Signature({ qrId }) {
           if (res?.data?.success) {
             setDistance(res?.data?.data?.distance);
             setOpenModalResults(true);
-            // notification.success({
-            //   message: `Điểm danh thành công ${userName} có mã sinh viên ${userCode}`,
-            // });
-            // notification.success({
-            //   message: `Khoảng cách:  ${res?.data?.data?.distance} mét`,
-            // });
-
-            // console.log(res?.data);
           } else {
             notification.error({ message: res?.data?.error?.message });
           }
@@ -115,7 +107,7 @@ function Signature({ qrId }) {
         </div>
       </div>
 
-      <div className="bg-slate-700 py-10 px-10 ">
+      <div className="bg-slate-700 py-10 px-10 tablet:h-[95vh] ">
         <h2 className="text-center font-medium text-sm text-slate-200 mb-5">
           Ký tên để xác nhận điểm danh
         </h2>
@@ -135,13 +127,14 @@ function Signature({ qrId }) {
             // className="h-[200px] phone:w-[200px] tablet:w-[900px]"
           />
         </div>
+        <Button
+          className={`block mx-auto mt-1 tablet:mt-10 tablet:text-white ${loading ? "hidden" : ""}`}
+          onClick={() => handleCheckins()}
+        >
+          Điểm danh
+        </Button>
       </div>
-      <Button
-        className={`block mx-auto mt-10 ${loading ? "hidden" : ""}`}
-        onClick={() => handleCheckins()}
-      >
-        Điểm danh
-      </Button>
+
       <Modal
         open={openModalResults}
         onCancel={() => setOpenModalResults(false)}

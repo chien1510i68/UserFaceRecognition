@@ -15,18 +15,23 @@ export const getClassroomsByUser = (id) => {
   return response;
 };
 
-export const getCheckinsByUserAndClassroom = (data) => {
-  const resonse = request
-    .post("checkins/classroom", data)
-    .then((res) => {
-    //   console.log(res);
-      return (res?.data?.success == true) ? res?.data?.data?.items : null
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  return resonse;
-};
+// export const getCheckinsByUserAndClassroom = (data) => {
+//   const resonse = request
+//     .post("checkins/classroom", data)
+//     .then((res) => {
+//     //   console.log(res);
+//       return (res?.data?.success == true) ? res?.data?.data?.items : null
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+//   return resonse;
+// };
+
+export const getCheckinsByUserAndClassroom =async (data) =>{
+  const res = await request.post("checkins/classroom" , data);
+  return res?.data?.success ? res?.data?.data?.items : null
+}
 
 
 export const getQuantityQrByClassroomId = (id) =>{

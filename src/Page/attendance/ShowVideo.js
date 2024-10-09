@@ -1,10 +1,10 @@
 import { Button, Spin, notification } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
-import { faceRecognition } from "./api/face_recognition";
-import ModalCofirm from "./Modal/ModalCofirm";
+import { faceRecognition } from "../../Component/api/face_recognition";
+import ModalCofirm from "../../Component/Modal/ModalCofirm";
 import Cookies from "js-cookie";
-import image1 from "../Assets/user.png";
+import image1 from "../../Assets/user.png";
 
 function ShowVideo({ qrId }) {
   const webcamRef = useRef(null);

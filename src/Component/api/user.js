@@ -25,3 +25,12 @@ export const predictUser = async (data) =>{
 export const trainingModel = async (data) =>{
   return await request.post("user/trainModel" , data)
 }
+export const historyAttendance = async (data) =>{
+  return await request.post("checkins/user" , data)
+}
+export const getUserDetail = async(userCode) =>{
+  return await request.get(`user/userCode/${userCode}`)
+}
+export const updateUser =  async(data)=>{
+  return await request.put("user/",data) ;
+}

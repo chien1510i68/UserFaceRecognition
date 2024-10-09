@@ -1,11 +1,12 @@
 import { LogoutOutlined, MenuOutlined } from "@ant-design/icons";
-import { Button, Layout } from "antd";
-import { Content } from "antd/es/layout/layout";
+import { Button, ConfigProvider, Image, Layout } from "antd";
+import { Content, Footer } from "antd/es/layout/layout";
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import MenuPhone from "./MenuPhone";
 import MenuTablet from "./MenuTablet";
 import Cookies from "js-cookie";
+
 function DefaultLayout() {
   const [openMenu, setOpenMenu] = useState(false);
   const navigate = useNavigate();
@@ -29,11 +30,13 @@ function DefaultLayout() {
         </div>
         {/* <MenuPhone open={openMenu} onClose={() => setOpenMenu(false)} /> */}
         {/* <div className="tablet:col-span-3 phone:col-span-4 phone:absolute tablet:relative phone:top-14 laptop:top-0 z-20 bg-white"> */}
-          <Content className="">
-            <Outlet />
-          </Content>
-        </div>
-      {/* </div> */}
+        <Content className="tablet:col-span-3 phone:col-span-4">
+          <Outlet />
+        </Content>
+      </div>
+      <div className="phone:block tablet:hidden">
+        <MenuPhone />
+      </div>
     </Layout>
   );
 }

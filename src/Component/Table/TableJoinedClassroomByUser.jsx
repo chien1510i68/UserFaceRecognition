@@ -1,25 +1,16 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { getHistoryAttended } from "../api/classroom";
 import HistoriAttended from "./HistoriAttended";
 
 function CustomRender({ record }) {
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const handleGetData = async () => {
-      const res = await getHistoryAttended({
-        classroomId: record?.id,
-        userCode: Cookies.get("userCode"),
-      });
-      setData(res != null ? res : []);
-    };
-    handleGetData();
-  }, [record]);
-
-  return <HistoriAttended data={data} />;
+ 
+  return <HistoriAttended data={record} />;
 }
+
+
 
 function TableJoinedClassroomByUser({ data, isLoading }) {
   const columns = [
@@ -50,8 +41,9 @@ function TableJoinedClassroomByUser({ data, isLoading }) {
       dataIndex: "",
       key: "x",
       // columnWidth: 200,
-      render: (record) => <CustomRender record={record} />,
+      render: (record) => <CustomRender record={record?.checkinUserDTOS} />,
     },
+    
   ];
 
   return (
@@ -65,6 +57,7 @@ function TableJoinedClassroomByUser({ data, isLoading }) {
           x: 300,
         }}
       />
+      {/* <Button onClick={test}>Click me </Button> */}
     </div>
   );
 }

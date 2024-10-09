@@ -18,7 +18,7 @@ function LoginTablet() {
       Cookies.set("jwt", res?.data?.data?.jwt);
       Cookies.set("userCode", res?.data?.data?.userCode);
       Cookies.set("userName", res?.data?.data?.userName);
-      navigate("/scan");
+      navigate("/home");
     } else {
       notification.error({
         message: "Tài khoản hoặc mật khẩu không chính xác",

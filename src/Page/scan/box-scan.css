@@ -1,17 +1,35 @@
-.clip-box {
-    clip-path: polygon(
-      0 0,
-      100% 0,
-      100% 100%,
-      0 100%,
-      0 50%,
-      calc(50% - 30vw) 50%,
-      calc(50% - 30vw) calc(50% + 30vw),
-      calc(50% + 30vw) calc(50% + 30vw),
-      calc(50% + 30vw) calc(50% - 30vw),
-      calc(50% - 30vw) calc(50% - 30vw),
-      calc(50% - 30vw) 50%,
-      0 50%
-    );
-  }
-  
+/* .clip-box {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 100%,
+    0 calc(35vh + 30vw),
+    calc(50% - 30vw) calc(35vh + 30vw),
+    calc(50% - 30vw) calc(35vh),
+    calc(50% + 30vw) calc(35vh),
+    calc(50% + 30vw) calc(35vh + 30vw),
+    100% calc(35vh + 30vw),
+    100% 100%,
+    0 100%,
+    0 calc(35vh + 30vw)
+  );
+} */
+
+/* Làm mờ toàn bộ video nền */
+
+
+/* Cắt khung ở giữa bằng clip-path */
+/* /* Cắt khung ở giữa bằng clip-path và làm mờ phần còn lại */
+/* CSS cho lớp overlay */
+/* Làm mờ toàn bộ video trừ khung giữa */
+/* Làm mờ toàn bộ nền video ngoại trừ phần khung giữa */
+.box-mask {
+  background: transparent; /* Không có làm mờ bên trong khung */
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6); /* Tạo vùng làm mờ bên ngoài */
+}
+
+
+
+
+ 
